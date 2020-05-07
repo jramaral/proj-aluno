@@ -35,13 +35,16 @@ export default {
   },
   data() {
     return {
-      professores: [
-        { id: 1, nome: "Jose", sobrenome: "Amaral" },
-        { id: 2, nome: "Pedro", sobrenome: "Amaral" },
-        { id: 3, nome: "Guilherme", sobrenome: "Amaral" }
-      ]
+      professores: []
     };
-  }
+  },
+  props: {},
+  created() {
+    this.$http
+      .get("http://localhost:3000/professores")
+      .then(res => this.professores =  res.data)
+      
+  },
 };
 </script>
 
