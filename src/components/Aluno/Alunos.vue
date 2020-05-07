@@ -82,6 +82,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 input {
+  width: calc(100% - 195px);
   border: 0;
   padding: 20px;
   font-size: 1.3em;
@@ -94,5 +95,6 @@ input {
   font-size: 1.3em;
   display: inline;
   background-color: darkgray;
+  
 }
 </style>
