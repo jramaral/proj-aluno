@@ -1,21 +1,22 @@
 {
-  "professores":[
-        { "id": 1, "nome": "Jose", "sobrenome": "Amaral"},
-        { "id": 2, "nome": "Pedro", "sobrenome": "Amaral"},
-        { "id": 3, "nome": "Guilherme", "sobrenome": "Amaral"}
-  ],
-
-  "alunos": [
+  "professores": [
     {
-      "id": 5,
-      "nome": "asasdasd",
-      "sobrenome": "",
-      "professor":{
-            "id": 1,
-            "nome": "Jose"
-      }
-      
+      "id": 1,
+      "nome": "Jose",
+      "sobrenome": "Amaral"
     },
+    {
+      "id": 2,
+      "nome": "Pedro",
+      "sobrenome": "Amaral"
+    },
+    {
+      "id": 3,
+      "nome": "Guilherme",
+      "sobrenome": "Amaral"
+    }
+  ],
+  "alunos": [
     {
       "id": 6,
       "nome": "jose",
@@ -48,8 +49,8 @@
       "nome": "marcos",
       "sobrenome": "",
       "professor": {
-        "id": 1,
-        "nome": "Jose"
+        "id": 3,
+        "nome": "Guilherme"
       }
     },
     {
@@ -57,8 +58,8 @@
       "nome": "aurelio",
       "sobrenome": "",
       "professor": {
-        "id": 1,
-        "nome": "Jose"
+        "id": 2,
+        "nome": "Pedro"
       }
     }
   ]
