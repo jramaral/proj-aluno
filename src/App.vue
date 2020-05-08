@@ -2,7 +2,7 @@
   <div id="app">
     <Navegacao></Navegacao>
     <div class="marginPrincipal">
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
     </div>
   </div>
 </template>

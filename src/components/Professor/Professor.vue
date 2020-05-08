@@ -12,7 +12,7 @@
           <td class="centralizarTexto">{{professor.id}}</td>
 
           <router-link
-            to="/alunos"
+            :to="`/alunos/${professor.id}`"
             tag="td"
             style="cursor: pointer"
           >{{professor.nome}} {{professor.sobrenome}}</router-link>

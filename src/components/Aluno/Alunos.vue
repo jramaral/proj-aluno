@@ -1,7 +1,9 @@
 <template>
   <div>
-    <titulo texto="Aluno" />
-    <div>
+    <titulo
+      :texto="professorid != undefined ? 'Professor: ' + professor.nome : 'Todos os alunos' "
+    />
+    <div v-if="professorid != undefined">
       <input type="text" placeholder="Nome do Aluno" v-model="nome" v-on:keyup.enter="addAluno()" />
       <button class="btn btnInput" @click="addAluno()">Adicionar</button>
     </div>
@@ -38,42 +40,60 @@ export default {
   data() {
     return {
       titulo: "Aluno",
+      professorid: this.$route.params.prof_id,
+      professor: {},
       nome: "",
       alunos: []
     };
   },
   props: {},
   created() {
-    this.$http
-      .get("http://localhost:3000/alunos")
-      .then(res => res.json())
-      .then(alu => (this.alunos = alu));
-    console.log(this.alunos);
+    if (this.professorid) {
+      this.carregarProfessores();
+      this.$http
+        .get(`http://localhost:3000/alunos?professor.id=${this.professorid}`)
+        .then(res => {
+          this.alunos = res.data;
+        });
+    } else {
+      this.$http
+        .get("http://localhost:3000/alunos")
+        .then(res => res.json())
+        .then(alu => (this.alunos = alu));
+    }
   },
   methods: {
     addAluno() {
       let _aluno = {
         id: "",
         nome: this.nome,
-        sobrenome: ""
+        sobrenome: "",
+        professor: {
+          id: this.professor.id,
+          nome: this.professor.nome
+        }
       };
 
       this.$http.post("http://localhost:3000/alunos", _aluno).then(res => {
         console.log(res.data);
         this.alunos.push(res.data);
       });
-      
+
       console.log(this.alunos);
       this.nome = "";
     },
     remover(aluno) {
-
-       this.$http.delete(`http://localhost:3000/alunos/${aluno.id}`).then(() => {
+      this.$http.delete(`http://localhost:3000/alunos/${aluno.id}`).then(() => {
         const indice = this.alunos.findIndex(t => t.id === aluno.id);
         this.alunos.splice(indice, 1);
-       
       });
-
+    },
+    carregarProfessores() {
+      this.$http
+        .get(`http://localhost:3000/professores/${this.professorid}`)
+        .then(res => {
+          this.professor = res.data;
+        });
     }
   }
 };
@@ -95,6 +115,5 @@ input {
   font-size: 1.3em;
   display: inline;
   background-color: darkgray;
-  
 }
 </style>
