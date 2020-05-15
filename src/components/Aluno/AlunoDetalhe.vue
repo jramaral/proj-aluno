@@ -35,11 +35,11 @@
           <td>
             <div v-if="aluno.professor != undefined">
               <label v-if="readOnly">{{ aluno.professor.nome }}</label>
-              <select v-else v-model="aluno.professor">
+              <select v-else v-model="aluno.professor.id">
                 <option
                   v-for="(professor, index) in professores"
                   :key="index"
-                  :value="professor"
+                  v-bind:value="professor.id"
                 >{{ professor.nome }}</option>
               </select>
             </div>
@@ -47,6 +47,12 @@
         </tr>
       </tbody>
     </table>
+    <div style="margin-top:15px">
+      <div v-if="!readOnly">
+        <button @click="salvar(aluno)">Salvar</button>
+        <button @click="cancelar()">Cancelar</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -78,6 +84,22 @@ export default {
   methods: {
     editar() {
       this.readOnly = !this.readOnly;
+    },
+    cancelar() {
+      this.editar();
+    },
+    salvar(aluno) {
+      let aluEditado = {
+        id: aluno.id,
+        nome: aluno.nome,
+        sobrenome: aluno.sobrenome,
+        dataNasc: aluno.dataNasc,
+        professor: aluno.professor
+      };
+      this.$http.put(
+        `http://localhost:3000/alunos/${aluEditado.id}`,
+        aluEditado
+      );
     }
   }
 };
