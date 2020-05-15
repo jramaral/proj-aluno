@@ -59,7 +59,7 @@ export default {
             aluno => aluno.professor.id === professor.id
           ).length
         };
-        this.professores[index] = professor
+        this.professores[index] = professor;
       });
     },
     carregarProfessores() {

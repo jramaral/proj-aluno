@@ -1,7 +1,11 @@
 <template>
   <div>
     <titulo
-      :texto="professorid != undefined ? 'Professor: ' + professor.nome : 'Todos os alunos' "
+      :texto="
+				professorid != undefined
+					? 'Professor: ' + professor.nome
+					: 'Todos os alunos'
+			"
     />
     <div v-if="professorid != undefined">
       <input type="text" placeholder="Nome do Aluno" v-model="nome" v-on:keyup.enter="addAluno()" />
@@ -14,10 +18,21 @@
         <th>Nome</th>
         <th>Opções</th>
       </thead>
-      <tbody v-if="alunos.length>0">
-        <tr v-for="(aluno, index) in alunos" :key="index">
-          <td>{{aluno.id}}</td>
-          <td>{{aluno.nome}} {{aluno.sobrenome}}</td>
+      <tbody v-if="alunos.length > 0">
+        <tr
+          v-for="(aluno, index) in alunos"
+          :key="index"
+          :lista="aluno"
+          @selecionarItem="itemSelecionado = $event"
+        >
+          <td>{{ aluno.id }}</td>
+
+          <router-link
+            :to="`/alunoDetalhe/${aluno.id}`"
+            tag="td"
+            style="cursor: pointer"
+          >{{ aluno.nome }} {{ aluno.sobrenome }}</router-link>
+
           <td>
             <button class="btn" @click="remover(aluno)">Remover</button>
           </td>
@@ -100,6 +115,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 input {
   width: calc(100% - 195px);
@@ -109,6 +125,7 @@ input {
   color: cadetblue;
   display: inline;
 }
+
 .btnInput {
   border: 0px;
   padding: 20px;
