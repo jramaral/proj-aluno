@@ -1,4 +1,5 @@
 # app-web
+![](name-of-giphy.gif)
 
 ## Project setup
 ```
